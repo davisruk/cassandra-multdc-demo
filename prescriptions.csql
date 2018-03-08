@@ -1,0 +1,69 @@
+create keyspace if not exists prescriptions with replication = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
+
+CREATE TABLE prescriptions.prescription(
+  id UUID,
+  store_id UUID,
+  store_name TEXT,
+  prescriber_id UUID,
+  prescriber_first_name TEXT,
+  prescriber_second_name TEXT,
+  prescriber_practice_id UUID,
+  prescriber_practice_name TEXT,
+  patient_id UUID,
+  patient_first_name TEXT,
+  patient_second_name TEXT,
+  prescription_date TIMESTAMP,
+  PRIMARY KEY ((id), prescription_date)
+ )
+ WITH CLUSTERING ORDER BY (prescription_date DESC);
+
+CREATE TABLE prescriptions.prescription_by_store(
+  id UUID,
+  store_id UUID,
+  store_name TEXT,
+  prescriber_id UUID,
+  prescriber_first_name TEXT,
+  prescriber_second_name TEXT,
+  prescriber_practice_id UUID,
+  prescriber_practice_name TEXT,
+  patient_id UUID,
+  patient_first_name TEXT,
+  patient_second_name TEXT,
+  prescription_date TIMESTAMP,
+  PRIMARY KEY ((store_id), prescription_date)
+ )
+ WITH CLUSTERING ORDER BY (prescription_date DESC);
+  
+CREATE TABLE prescriptions.prescription_by_patient(
+  id  UUID,
+  store_id UUID,
+  store_name TEXT,
+  prescriber_id UUID,
+  prescriber_first_name TEXT,
+  prescriber_second_name TEXT,
+  prescriber_practice_id UUID,
+  prescriber_practice_name TEXT,
+  patient_id UUID,
+  patient_first_name TEXT,
+  patient_second_name TEXT,
+  prescription_date TIMESTAMP,
+  PRIMARY KEY ((patient_id), prescription_date)
+ )
+ WITH CLUSTERING ORDER BY (prescription_date DESC);
+  
+CREATE TABLE prescriptions.prescription_by_prescriber(
+  id UUID,
+  store_id UUID,
+  store_name TEXT,
+  prescriber_id UUID,
+  prescriber_first_name TEXT,
+  prescriber_second_name TEXT,
+  prescriber_practice_id UUID,
+  prescriber_practice_name TEXT,
+  patient_id UUID,
+  patient_first_name TEXT,
+  patient_second_name TEXT,
+  prescription_date TIMESTAMP,
+  PRIMARY KEY ((prescriber_id), prescription_date)
+ )
+ WITH CLUSTERING ORDER BY (prescription_date DESC);
